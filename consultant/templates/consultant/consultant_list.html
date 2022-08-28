@@ -1,0 +1,182 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+     فهرست مشاوران
+{% endblock %}
+
+
+{% block content %}
+    <section class="container mt-3 p-lg-3">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 mb-3 leftcol">
+                <div class="box p-4">
+                    <h6 class="IRANSansWeb_Medium bt-color bg-light py-2 px-3 rad25"><i class="fas fa-filter pl-2"></i>فیلترها
+                    </h6>
+                    <div class="mt-3 pr-3 pl-2 pt-2 brfilter">
+
+                        <input class="form-control" type="text" placeholder="نام متخصص">
+
+
+                        <input class="form-control" type="text" placeholder="تخصص">
+
+
+                        <select class="custom-select mb-2">
+                            <option selected="selected">استان</option>
+                            <option>تهران</option>
+                            <option>گلستان</option>
+                            <option>همدان</option>
+                            <option>ایلام</option>
+                            <option>کرمانشاه</option>
+                            <option>اصفهان</option>
+                            <option>گیلان</option>
+                        </select>
+
+                        <select class="custom-select mb-2">
+                            <option selected="selected">شهر</option>
+                            <option>آزادشهر</option>
+                            <option>کلاله</option>
+                            <option>گنبدکاووس</option>
+                            <option>مینودشت</option>
+                            <option>آزادشهر</option>
+                            <option>کلاله</option>
+                            <option>گنبدکاووس</option>
+                            <option>مینودشت</option>
+                        </select>
+
+                        <span class="IRANSansWeb_Medium">جنسیت :</span>
+                        <div>
+                            <div class="icheck-info">
+                                <input type="radio" checked id="primary1" name="primary"/>
+                                <label for="primary1">آقا</label>
+                            </div>
+                            <div class="icheck-info">
+                                <input type="radio" id="primary2" name="primary"/>
+                                <label for="primary2">خانم</label>
+                            </div>
+                        </div>
+                        <a id="searcbtn" class="btn btn-success rad25  btn-block p-2 text-white">جستجو</a>
+                    </div>
+
+
+                </div>
+                <div class="box p-4 text-dark mt-4">
+                    <h6 class="IRANSansWeb_Medium bt-color bg-light py-2 px-3 rad25">دسته بندی ها</h6>
+                    <div id="skill" class="p-2">
+                        <ul>
+                            <li>
+                                <a href="#">تخصص 1<span
+                                        class="badge badge-secondary mr-3  p-2 rad25 float-left text-dark">125</span></a><br/>
+                            </li>
+                            <li>
+                                <a href="#">تخصص 2<span
+                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">856</span></a><br/>
+                            </li>
+                            <li>
+                                <a href="#">تخصص 3<span
+                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">7459</span></a><br/>
+                            </li>
+                            <li>
+                                <a href="#">تخصص 4<span
+                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">965</span></a><br/>
+                            </li>
+                            <li>
+                                <a href="#">تخصص 5<span
+                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">8123</span></a><br/>
+                            </li>
+                            <li>
+                                <a href="#">تخصص 6<span
+                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">7459</span></a><br/>
+                            </li>
+                            <li>
+                                <a href="#">تخصص 7<span
+                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">965</span></a><br/>
+                            </li>
+                            <li>
+                                <a href="#">تخصص 8<span
+                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">8123</span></a><br/>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-9 col-md-8">
+
+                {% for object in object_list %}
+                    <div class="box p-4">
+                        <div class="row">
+                            <div class="col-lg-2 text-lg-right text-center">
+                                <a href="#">
+                                    <img src="
+                                            {% if object.profile.image.url %}{{ object.profile.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}"
+                                         class="img-fluid rounded-circle mb-lg-0 mb-3"/>
+                                </a>
+                            </div>
+                            <div class="col-lg-10 pr-lg-3 text-lg-right text-center">
+
+                                <ul>
+                                    <li>
+                                    <span class="float-lg-left ">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    </span>
+                                    </li>
+                                    <li>
+                                        <a href="#"><h5 class="IRANSansWeb_Medium">{{ object.get_full_name }}</h5></a>
+                                    </li>
+                                    <li>
+                                        <p>تخصص فرد مورد نظر</p>
+                                        <span class="bg-warning py-1 px-2 text-dark  rad25">2654 مشاوره</span> - <span
+                                            class="IRANSansWeb_Medium text-danger">256 نظر</span>
+                                        <p class="mt-2 mb-lg-0">تهران - شهرک قدس (غرب) - تقاطع بلوار فرحزادی و شهید
+                                            دادمان -
+                                            بیمارستان اتیه - طبقه منفی یک </p>
+                                    </li>
+                                    <li>
+                                        <a href="Consultation.html"
+                                           class="btn btn-danger float-lg-left text-white rad25">دریافت
+                                            مشاوره</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+
+
+                {% if is_paginated %}
+                    <div class="text-center">
+                        <ul class="pagination mt-3">
+
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                                </li>
+                            {% endif %}
+
+                            {% for page in paginator.page_range %}
+                                <li class="page-item{% if page_obj.number == page %} active {% endif %}"><a
+                                        class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

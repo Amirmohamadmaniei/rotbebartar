@@ -1,0 +1,53 @@
+{% load static %}
+
+<body id="home">
+<header class="nav-container">
+    <nav class="sina-nav mobile-sidebar navbar-fixed" data-top="60">
+        <div class="container">
+
+            {% if not request.user.is_authenticated %}
+                <div class="extension-nav">
+                    <ul class="pt-2">
+                        <li>
+                            <a id="loginbtn" href="{% url 'account:login' %}" class="btn btn-link p-1 ml-2">
+                                <img src="{% static 'Images/Svg/login.svg' %}"/><span class="mr-1">ورود</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="loginbtn" href="{% url 'account:register' %}" class="btn btn-link p-1 ml-2">
+                                <img src="{% static 'Images/Svg/user.svg' %}"/><span class="mr-1">ثبت نام</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="extension-nav">
+                    <a href="{% url 'account:profile' request.user.id %}"> Profile </a>
+                </div>
+            {% endif %}
+            <div class="sina-nav-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="sina-brand pl-4" href="{% url 'home:home' %}">
+                    <img src="{% static 'Images/logo.png' %}" class="img-fluid"/>
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="sina-menu sina-menu-center IRANSansWeb">
+                    <li><a href="{% url 'home:home' %}">صفحه اصلی</a></li>
+                    <li><a href="Blog.html">وبلاگ</a></li>
+                    <li><a href="Reservationlist.html">جستجوی پیشرفته</a></li>
+                    <li><a href="Reservation.html">مشاوران</a></li>
+                    <li><a href="Faq.html">پرسش و پاسخ</a></li>
+                    <li><a href="AboutUs.html">درباره ما</a></li>
+                    <li><a href="ContactUs.html">ارتباط با ما</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+

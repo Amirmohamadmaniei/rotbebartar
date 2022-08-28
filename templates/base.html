@@ -1,0 +1,19 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+
+
+{% include 'includes/header_refrence.html' %}
+{% include 'includes/header.html' %}
+
+{% block content %}
+{% endblock %}
+
+{% include 'includes/footer.html' %}

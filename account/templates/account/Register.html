@@ -1,0 +1,56 @@
+﻿{% load static %}
+
+
+{% include 'includes/header_refrence.html' %}
+
+<body>
+
+<section class="container-fluid pt-5 pb-4 pb-lg-0 intro-section">
+
+    <section class="text-center text-white m-3">
+        <h5 class="IRANSansWeb_Bold pb-2">ثبت نام در سایت</h5>
+
+        <div id="login" class="box border-top-0 p-lg-4 p-3">
+            <img src="{% static 'Images/Svg/user.svg' %}" style="width:45px"/>
+            <p class="text-dark my-3">لطفا جهت عضویت ، اطلاعات زیر را وارد نمایید</p>
+
+            <form method="post">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    {% for error in form.phone.errors %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+
+
+
+                {{ form.password }}
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <p class="alert alert-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.password2 }}
+
+                <button class="btn btn-danger btn-block mb-3 py-3" type="submit">عضویت در سایت<i
+                        class="fa fa-chevron-left mr-2"></i></button>
+            </form>
+
+        </div>
+    </section>
+
+    <object class="d-none d-xl-block" type="image/svg+xml" data="{% static 'Images/Svg/desktop-wave.svg' %}"></object>
+
+</section>
+
+
+</body>
+</html>
