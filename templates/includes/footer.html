@@ -9,19 +9,10 @@
                     <h5 class="IRANSansWeb_Medium"> خدمات ما : </h5>
                     <ul>
                         <li>
-                            <a href="Reservationlist.html" target="_blank" title="">جستجوی پیشرفته</a>
+                            <a href="{% url 'consultant:consultant_list' %}" target="_blank" title="">مشاوران </a>
                         </li>
                         <li>
-                            <a href="Reservation.html" target="_blank" title="">رزرو وقت </a>
-                        </li>
-                        <li>
-                            <a href="Consultation.html" target="_blank" title="">مشاوره </a>
-                        </li>
-                        <li>
-                            <a href="Blog.html" target="_blank" title="">وبلاگ</a>
-                        </li>
-                        <li>
-                            <a href="Blogdetails.html" target="_blank" title="">جزئیات وبلاگ </a>
+                            <a href="{% url 'blog:blog_list' %}" target="_blank" title="">وبلاگ</a>
                         </li>
                     </ul>
                 </div>
@@ -29,20 +20,20 @@
                     <h5 class="IRANSansWeb_Medium"> صفحات ما : </h5>
                     <ul>
                         <li>
-                            <a href="Faq.html" target="_blank" title="">سوالات متداول</a>
+                            <a href="{% url 'home:faq' %}" target="_blank" title="">سوالات متداول</a>
                         </li>
 
                         <li>
-                            <a href="Login.html" target="_blank" title="">ورود</a>
+                            <a href="{% url 'account:login' %}" target="_blank" title="">ورود</a>
                         </li>
                         <li>
-                            <a href="Register.html" target="_blank" title="">عضویت</a>
+                            <a href="{% url 'account:register' %}" target="_blank" title="">عضویت</a>
                         </li>
                         <li>
-                            <a href="AboutUs.html" target="_blank" title="">درباره ما</a>
+                            <a href="{% url 'home:about_us' %}" target="_blank" title="">درباره ما</a>
                         </li>
                         <li>
-                            <a href="ContactUs.html" target="_blank" title="">تماس با ما </a>
+                            <a href="{% url 'home:contact_us' %}" target="_blank" title="">تماس با ما </a>
                         </li>
                     </ul>
                 </div>

@@ -1,0 +1,105 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    ارتباط با ما
+{% endblock %}
+
+
+
+{% block content %}
+
+    <section class="container-fluid pt-5 pb-4 pb-lg-0 intro-section">
+
+        <div class="container mb-5  box br-top p-5 ">
+            <h5 class="mb-4 bt-color">ارتباط با ما</h5>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p class="mb-3">جهت ارتباط با ما و ارسال نظـرات و پیشنهادات خود می توانید از فرم زیر استفاده
+                        نمایید</p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {% render_field form.full_name placeholder="نـام کامل" %}
+                            {% render_field form.email placeholder="ایمیل معتـبر" %}
+                            {% render_field form.phone placeholder="شمـاره موبایل" %}
+                            {% render_field form.subject placeholder="موضوع پیام" %}
+                            {% render_field form.body cols="60" rows="9" placeholder="متن پیام" style="min-height: 150px!important" %}
+                        </div>
+
+                        <button class="btn btn-danger mb-3" type="submit">ارسـال پیـام<i
+                                class="fa fa-paper-plane pr-2"></i>
+                        </button>
+                    </form>
+
+                </div>
+                <div class="col-md-6 pr-md-4">
+
+                    <p>
+
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با
+                        تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+                        صنعت چاپ و گرافیک است.
+                    </p>
+
+                    <p><span class="IRANSansWeb_Medium  text-lightgreen"><i class="fas fa-map-marker-alt ml-2"></i>آدرس :</span>
+                        خیابان تست - کوچه تست - پلاک تست </p>
+                    <p><span class="IRANSansWeb_Medium  text-lightgreen"><i class="fas fa-phone pl-2"></i>تلفن : </span>09305735566
+                    </p>
+                    <div>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3175.7976205896916!2d55.17228501478392!3d37.2525088798578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f82bf1ba6cc2105%3A0x6f7802585af2473f!2zVGFsZWdoYW5pIEhvc3BpdGFsINio24zZhdin2LHYs9iq2KfZhiDYt9in2YTZgtin2YbbjCDar9mG2KjYrw!5e0!3m2!1sen!2s!4v1571678211268!5m2!1sen!2s"
+                                class="my-4" allowfullscreen="" frameborder="0" style="width:100%"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <object class="d-none d-xl-block" type="image/svg+xml"
+                data="{% static 'Images/Svg/desktop-wave.svg' %}"></object>
+
+
+    </section>
+
+    <section id="reason" class="container py-3 py-sm-3 ">
+        <div class="row  mt-4 mx-1">
+            <div class="col-lg-4  mb-3">
+                <div class="value-body d-flex flex-sm-row flex-column text-sm-right text-center">
+                    <div class="mt-4">
+                        <img src="{% static 'Images/advis_stats.png' %}"/>
+                    </div>
+                    <div class="p-3">
+                        <h6 class="IRANSansWeb_Medium">طراحی استاندارد</h6>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4  mb-3">
+                <div class="value-body d-flex flex-sm-row flex-column text-sm-right text-center">
+                    <div class="mt-4">
+                        <img src="{% static 'Images/Phone-Communication-Support.png' %}"/>
+                    </div>
+                    <div class="p-3">
+                        <h6 class="IRANSansWeb_Medium">رنگبندی مناسب</h6>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4  mb-3">
+                <div class="value-body d-flex flex-sm-row flex-column text-sm-right text-center">
+                    <div class="mt-4">
+                        <img src="{% static 'Images/approved-unlock.png' %}"/>
+                    </div>
+                    <div class="p-3">
+                        <h6 class="IRANSansWeb_Medium">زیبا و چشم نواز</h6>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

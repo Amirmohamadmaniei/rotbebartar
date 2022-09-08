@@ -1,0 +1,168 @@
+{% extends 'profile_base.html' %}
+{% load static %}
+{% load filter %}
+
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>پروفایل دانش آموز</h1>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        {% if request.user.type == 'student' %}
+                            {% if request.user.studentprofile.consultant == None %}
+                                <div class="card-header bg bg-warning-gradient">
+                                    <h3 class="card-title">مشاور</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    شما هنوز مشاوری را برای مشاوره انتخاب نکرده اید
+                                </div>
+                            {% else %}
+                                <div class="card-header bg bg-warning-gradient">
+                                    <h3 class="card-title">مشاور</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body" style="overflow: auto">
+                                    <table id="example2" class="table table-hover table-striped">
+                                        <thead>
+                                        <tr class="bg bg-dark">
+                                            <th>عکس</th>
+                                            <th> نام کامل</th>
+                                            <th>رشته دانشگاهی</th>
+                                            <th> پایان مشاوره</th>
+                                            <th> شماره تماس</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                        src="{{ request.user.studentprofile.consultant.user.consultantprofile.image.url }}"
+                                                        class="img-circle elevation-2" alt="User Image"
+                                                        style="height: 40px; width: 40px;">
+                                            </td>
+                                            <td>{{ request.user.studentprofile.consultant.user.get_full_name }}</td>
+                                            <td>{{ request.user.studentprofile.consultant.user.consultantprofile.major_university }}</td>
+                                            <td>{{ request.user.studentprofile.subscriber_to_end }}</td>
+                                            <td>{{ request.user.studentprofile.consultant.user.consultantprofile.tel }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
+                        {% elif request.user.type == 'consultant' %}
+                            {% if request.user.consultantprofile.students.all.count == 0 %}
+                                <div class="card-header bg bg-warning-gradient">
+                                    <h3 class="card-title">دانش آموزان</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    شما دانش آموزی را برای مشاوره ندارید
+                                </div>
+                            {% else %}
+                                <div class="card-header bg bg-warning-gradient">
+                                    <h3 class="card-title">دانش آموزان</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body" style="overflow: auto">
+                                    <table id="example2" class="table table-hover table-striped">
+                                        <thead>
+                                        <tr class="bg bg-dark">
+                                            <th> نام کامل</th>
+                                            <th>رشته</th>
+                                            <th> پایه تحصیلی</th>
+                                            <th> پایان مشاوره</th>
+                                            <th> شماره تماس</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for student in request.user.consultantprofile.students.all %}
+                                            <tr>
+                                                <td>
+                                                    {% if student.user.get_full_name %}
+                                                        {{ student.user.get_full_name }}
+                                                    {% else %}
+                                                        نامشخص
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if student.user.major_high_school %}
+                                                        {{ student.user.major_high_school|major_high_school_to_text }}
+                                                    {% else %}
+                                                        نامشخص
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if student.grade %}
+                                                        {{ student.grade|grade_to_text }}
+                                                    {% else %}
+                                                        نامشخص
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ student.subscriber_to_end }}</td>
+                                                <td>{{ student.user.phone }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            {% endif %}
+                        {% endif %}
+
+
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'dashboard/plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- DataTables -->
+    <script src="{% static 'dashboard/plugins/datatables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'dashboard/plugins/datatables/dataTables.bootstrap4.js' %}"></script>
+    <!-- SlimScroll -->
+    <script src="{% static 'dashboard/plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'dashboard/plugins/fastclick/fastclick.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dashboard/dist/js/adminlte.min.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dashboard/dist/js/demo.js' %}"></script>
+    <!-- page script -->
+
+    </body>
+    </html>
+
+{% endblock %}

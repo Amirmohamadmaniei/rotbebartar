@@ -17,31 +17,29 @@
                     <div class="above-page-tagline">
                         <h1 class="main-tagline IRANSansWeb_Bold">جامع ترین سامانه مشـاوره آنلاین</h1>
                         <p class="explaine-tagline">
-                            <span>با بیش از 5000 کارشناس متخصص به صورت </span>
-                            <span class="rw-words rw-words-1">
-                                <span>متنی</span>
-                                <span>صوتی</span>
-                                <span>تلفنی</span>
-                                <span>متنی</span>
-                                <span>صوتی</span>
-                                <span>تلفنی</span>
-                            </span>
-                            <span>گفتگو کنید</span>
+                            <span> با بیش از 250 مشاور متخصص به صورت آنلاین مشاوره دریافت کنید </span>
                         </p>
                     </div>
                     <div class="above-page-search">
-                        <input type="text" class="srch-input" placeholder="جستجوی کارشناس، تخصص .."/>
-                        <a href="#" class="search-icon">
-                            <i class="fas fa-search text-danger fa-2x"></i>
-                        </a>
+                        <form name="searchform" action="{% url 'consultant:consultant_list_search' %}"
+                              onsubmit="return validateForm()">
+                            <input name="q" type="text" class="srch-input" placeholder="جستجوی کارشناس، رشته .."/>
+                            <button style="border: 0px; background: transparent;" type="submit">
+                                <a href="#" class="search-icon">
+                                    <i class="fas fa-search text-danger fa-2x"></i>
+                                </a>
+                            </button>
+                        </form>
                     </div>
 
                     <div class="last-question-time d-lg-block d-none">
                         <div class="d-flex flex-row justify-content-center">
-                            <a class="btn btn-danger text-white rad25 py-2 m-2"><i class="fa fa-gavel  ml-2"></i>گفتگو و
-                                مشاوره با بخش حقوقی</a>
-                            <a class="btn btn-purple text-white rad25 py-2 m-2"><i class="fa fa-stethoscope  ml-2"></i>گفتگو
-                                و مشاوره با بخش روانشناسی</a>
+                            <a href="{% url 'home:contact_us' %}" class="btn btn-danger text-white rad25 py-2 m-2"><i
+                                    class="fa fa-gavel  ml-2"></i>
+                                مشاور ما شوید </a>
+                            <a href="{% url 'home:contact_us' %}" class="btn btn-purple text-white rad25 py-2 m-2"><i
+                                    class="fa fa-stethoscope  ml-2"></i>
+                                راهنمایی انتخاب مشاور </a>
                         </div>
 
                     </div>
@@ -72,7 +70,7 @@
 
 
     <section class="container mt-3 p-4 max-900 ">
-        <h5 class="IRANSansWeb_Medium bt-color text-center mb-4">گفتگو و مشاوره با بهترین کارشناسان</h5>
+        <h5 class="IRANSansWeb_Medium bt-color text-center mb-4">گفتگو و مشاوره با بهترین مشاوران</h5>
         <a href="{% url 'consultant:consultant_list' %}">
             <div class="row box-transform">
                 <div class="col-lg-12 value-body text-center mb-3 p-3 brbtm">
@@ -88,7 +86,14 @@
                                     <li>
                                         <i class="online"></i>
                                         <img src="
-                                                {% if consultant.profile.image.url %}{{ consultant.profile.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}"
+
+
+
+
+
+
+
+                                                {% if consultant.consultantprofile.image.url %}{{ consultant.consultantprofile.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}"
                                              class="rounded-circle img-fluid"/>
                                     </li>
                                 {% endfor %}
@@ -104,60 +109,9 @@
             </div>
         </a>
 
-
-        <a href="Reservationlist.html">
-            <div class="row box-transform">
-                <div class="col-lg-12 value-body text-center mb-3 p-3 brbtm">
-                    <div class="row">
-                        <div class="col-md-3 pt-3 pr-3">
-
-                            <span>گفتگو و مشاوره با  <b class="IRANSansWeb_Medium">وکلای دادگستری</b></span>
-                        </div>
-                        <div class="col-md-7 px-3">
-                            <ul class="Consulation-list">
-                                <li>
-                                    <i class="online"></i>
-                                    <img src="{% static 'Images/12.jpg' %}" class="rounded-circle img-fluid"/>
-                                </li>
-                                <li>
-                                    <i class="online"></i>
-                                    <img src="{% static 'Images/11.jpg' %}" class="rounded-circle img-fluid"/>
-                                </li>
-
-                                <li>
-                                    <i class="online"></i>
-                                    <img src="{% static 'Images/12.jp' %}g" class="rounded-circle img-fluid"/>
-                                </li>
-                                <li>
-                                    <i class="online"></i>
-                                    <img src="{% static 'Images/11.jp' %}g" class="rounded-circle img-fluid"/>
-                                </li>
-                                <li>
-                                    <i class="online"></i>
-                                    <img src="{% static 'Images/12.jpg' %}" class="rounded-circle img-fluid"/>
-                                </li>
-                                <li>
-                                    <i class="online"></i>
-                                    <img src="{% static 'Images/12.jpg' %}" class="rounded-circle img-fluid"/>
-                                </li>
-                                <li>
-                                    <i class="online"></i>
-                                    <img src="{% static 'Images/11.jpg' %}" class="rounded-circle img-fluid"/>
-                                </li>
-
-                            </ul>
-                        </div>
-                        <div class="col-md-2 pt-3 pr-3">
-                            <span class="IRANSansWeb_Light">+781 مشاور دیگر .. &nbsp;</span>
-                            <i class="fas fa-chevron-left"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
         <div class="text-center my-3">
-            <a href="#" class="btn btn-danger text-white px-5">+ مشاهده دیگر کارشناسان </a>
+            <a href="{% url 'consultant:consultant_list' %}" class="btn btn-danger text-white px-5">+ مشاهده دیگر
+                مشاوران </a>
 
         </div>
     </section>
@@ -216,47 +170,37 @@
     </section>
 
     <section id="least_blog" class="container  py-3 py-sm-3 ">
-        <h5 class="IRANSansWeb_Medium bt-color text-center">آخرین های مجله سلامت</h5>
+        <h5 class="IRANSansWeb_Medium bt-color text-center">آخرین های مقالات </h5>
         <div class="row value-body mt-4 mx-1">
+
             <div class="col-lg-7  py-3 pl-3">
                 <div class="row">
                     <div class="col-lg-6 mb-3">
-                        <a href="#" class="IRANSansWeb_Medium">کودکان و روابط اجتماعی با دیگران</a>
-                        <p class="pt-3">با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با تولید
-                            سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
-                            چاپ و گرافیک استلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم
-                            ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
-                        <a href="#" class="btn btn-danger text-white">بیشتر بدانید ..</a>
+                        <a href="{{ popular_blog.0.get_absulute_url }}"
+                           class="IRANSansWeb_Medium">{{ popular_blog.0.title }}</a>
+                        <p class="pt-3"> {{ popular_blog.0.body|truncatechars:200 }} </p>
+                        <a href="{{ popular_blog.0.get_absulute_url }}" class="btn btn-danger text-white">بیشتر بدانید
+                            ..</a>
                     </div>
                     <div class="col-lg-6 mb-3">
-                        <a href="#"><img src="{% static 'Images/123.jpg' %}" class="img-fluid rad10"/></a>
+                        <a href="{{ popular_blog.0.get_absulute_url }}"><img src="{{ popular_blog.0.image.url }}"
+                                                                             class="img-fluid rad10"/></a>
                     </div>
                 </div>
 
             </div>
+
             <div id="s_post" class="col-lg-5 py-3 pl-3">
                 <div class="d-flex flex-column">
-                    <div class="d-flex flex-md-row flex-column mb-2">
-                        <img src="{% static 'Images/topblog6.jpg' %}" class="img-fluid ml-3 rad10 mb-2"/>
-                        <div>
-                            <a href="#" class="IRANSansWeb_Medium">تغذیه و تندرستی</a>
-                            <p>با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است با تولید سادگی نامفهوم از صنعت چاپ. </p>
+                    {% for blog in last_blogs %}
+                        <div class="d-flex flex-md-row flex-column mb-2">
+                            <img src="{{ blog.image.url }}" class="img-fluid ml-3 rad10 mb-2"/>
+                            <div>
+                                <a href="#" class="IRANSansWeb_Medium">{{ blog.title }}</a>
+                                <p> {{ blog.body|truncatechars:100 }} </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex flex-md-row flex-column mb-2">
-                        <img src="{% static 'Images/topblog7.jpg' %}" class="img-fluid rad10 ml-3 mb-2"/>
-                        <div>
-                            <a href="#" class="IRANSansWeb_Medium">مادر و سلامتی دوران بارداری</a>
-                            <p>با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است . </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-md-row flex-column mb-2">
-                        <img src="{% static 'Images/topblog8.jpg' %}" class="img-fluid rad10 ml-3 mb-2"/>
-                        <div>
-                            <a href="#" class="IRANSansWeb_Medium">روانشناسی افراد پراسترس</a>
-                            <p>با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است . </p>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -267,130 +211,140 @@
 
 
 
-    <section class="container mt-5">
-        <h5 class="IRANSansWeb_Medium text-center bt-color">نظرات کاربران ما</h5>
-        <div id="owl-Comments" class="owl-carousel owl-theme text-right ">
-            <div class="card p-4">
+{#    <section class="container mt-5">#}
+{#        <h5 class="IRANSansWeb_Medium text-center bt-color">نظرات کاربران ما</h5>#}
+{#        <div id="owl-Comments" class="owl-carousel owl-theme text-right ">#}
+{#            <div class="card p-4">#}
+{##}
+{#                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با#}
+{#                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>#}
+{##}
+{#                <div class="d-flex flex-row">#}
+{#                    <img src="{% static 'Images/11.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>#}
+{##}
+{#                    <div>#}
+{#                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>#}
+{#                        <span>#}
+{#                               #}
+{#                                <i class="fas fa-star  text-warning"></i>#}
+{#                                <i class="fas fa-star  text-warning"></i>#}
+{#                            </span>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#            <div class="card p-4">#}
+{##}
+{#                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با#}
+{#                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>#}
+{##}
+{#                <div class="d-flex flex-row">#}
+{#                    <img src="{% static 'Images/12.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>#}
+{##}
+{#                    <div>#}
+{#                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>#}
+{#                        <span>#}
+{#                            <i class="fas fa-star text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                         #}
+{#                        </span>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#            <div class="card p-4">#}
+{##}
+{#                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با#}
+{#                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>#}
+{##}
+{#                <div class="d-flex flex-row">#}
+{#                    <img src="{% static 'Images/11.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>#}
+{##}
+{#                    <div>#}
+{#                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>#}
+{#                        <span>#}
+{#                            <i class="fas fa-star text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                        </span>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#            <div class="card p-4">#}
+{##}
+{#                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با#}
+{#                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>#}
+{##}
+{#                <div class="d-flex flex-row">#}
+{#                    <img src="{% static 'Images/45.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>#}
+{##}
+{#                    <div>#}
+{#                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>#}
+{#                        <span>#}
+{#                            <i class="fas fa-star text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                        </span>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#            <div class="card p-4">#}
+{##}
+{#                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با#}
+{#                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>#}
+{##}
+{#                <div class="d-flex flex-row">#}
+{#                    <img src="{% static 'Images/11.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>#}
+{##}
+{#                    <div>#}
+{#                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>#}
+{#                        <span>#}
+{#                            <i class="fas fa-star text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                          #}
+{#                        </span>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#            <div class="card p-4">#}
+{##}
+{#                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با#}
+{#                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>#}
+{##}
+{#                <div class="d-flex flex-row">#}
+{#                    <img src="{% static 'Images/46.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>#}
+{##}
+{#                    <div>#}
+{#                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>#}
+{#                        <span>#}
+{#                            <i class="fas fa-star text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                            <i class="fas fa-star  text-warning"></i>#}
+{#                        </span>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{##}
+{#        </div>#}
+{##}
+{#    </section>#}
 
-                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با
-                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
+    <script>
+        function validateForm() {
+            var x = document.forms["searchform"]["q"].value;
+            if (x == "") {
+                return false;
+            }
+        }
+    </script>
 
-                <div class="d-flex flex-row">
-                    <img src="{% static 'Images/11.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>
-
-                    <div>
-                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>
-                        <span>
-                               
-                                <i class="fas fa-star  text-warning"></i>
-                                <i class="fas fa-star  text-warning"></i>
-                            </span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card p-4">
-
-                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با
-                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
-
-                <div class="d-flex flex-row">
-                    <img src="{% static 'Images/12.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>
-
-                    <div>
-                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>
-                        <span>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                         
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card p-4">
-
-                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با
-                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
-
-                <div class="d-flex flex-row">
-                    <img src="{% static 'Images/11.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>
-
-                    <div>
-                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>
-                        <span>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card p-4">
-
-                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با
-                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
-
-                <div class="d-flex flex-row">
-                    <img src="{% static 'Images/45.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>
-
-                    <div>
-                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>
-                        <span>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card p-4">
-
-                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با
-                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
-
-                <div class="d-flex flex-row">
-                    <img src="{% static 'Images/11.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>
-
-                    <div>
-                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>
-                        <span>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                          
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card p-4">
-
-                <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و گرافیک است لورم ایپسوم متن ساختگی با
-                    تولید سادگی نامفهوم از صنعت چاپ و گرافیک است. </p>
-
-                <div class="d-flex flex-row">
-                    <img src="{% static 'Images/46.jpg' %}" class="img-fluid rounded-circle ml-3 pic55"/>
-
-                    <div>
-                        <p class="text-dark IRANSansWeb_Medium bottom_p"> سیما محمدی</p>
-                        <span>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                            <i class="fas fa-star  text-warning"></i>
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
 {% endblock %}

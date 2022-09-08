@@ -36,12 +36,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #
+    'django_cleanup.apps.CleanupConfig',
+    'widget_tweaks',
+    'jalali_date',
+    'star_ratings',
+
     # my apps
     'home.apps.HomeConfig',
     'user.apps.UserConfig',
     'account.apps.AccountConfig',
     'consultant.apps.ConsultantConfig',
-    'dashboard.apps.DashboardConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +58,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'account.middleware.SubscriptionMiddleware',
+    'consultant.middleware.ConsultantCapacityMiddleware',
+    'blog.middleware.IPAddressMiddleware',
 ]
 
 ROOT_URLCONF = 'rotbebartar.urls'
@@ -108,11 +117,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'fa-ir'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -128,3 +137,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.CustomUser'
+
+# star rating settings #
+STAR_RATINGS_STAR_HEIGHT = 18
+STAR_RATINGS_RERATE = False
+# STAR_RATINGS_STAR_SPRITE = os.path.join(BASE_DIR, 'static/star-ratings/images/full.png')

@@ -1,0 +1,344 @@
+{% extends 'profile_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {% if request.user.type == 'consultant' %}
+                            <h3>پنل مدیریتی مشاور</h3>
+                        {% else %}
+                            <h3> پنل کاربری </h3>
+                        {% endif %}
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+
+        {% if request.user.type == 'consultant' %}
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="col col-4 callout callout-success bg bg-success">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form enctype="multipart/form-data" method="post" novalidate="novalidate">
+                {% csrf_token %}
+                <div class="card card-warning">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"> فرم مشخصات </h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="tab-content ">
+                                    <div role="tabpanel" class="tab-pane active" id="account-vertical-general"
+                                         aria-labelledby="account-pill-general" aria-expanded="true">
+                                        <div class="media">
+                                            <a href="javascript:void(0);">
+                                                <img src="
+                                                {% if request.user.consultantprofile.image.url %}
+                                                    {{ request.user.consultantprofile.image.url }}
+                                                {% else %}
+                                                    {% static 'Images/avatar.jpg' %}
+                                                {% endif %}" id="img-avatar"
+                                                     class="rounded mr-75" alt="profile image" height="64" width="64">
+                                            </a>
+                                            <div class="media-body mt-25">
+                                                <div class="col-12 px-0 d-flex flex-sm-row flex-column justify-content-start">
+                                                    <label for="select-files"
+                                                           class="btn btn-sm btn-light-primary ml-50 mb-50 mb-sm-0">
+                                                        عکسی را برای پروفایل خود انتخاب کنید :
+                                                        {% render_field form_consultant.image id="select-files" type="file" hidden="" accept="image/*" data-val="true" data-val-fileimage="شما فقط قادر به انتخاب عکس می باشید" data-val-filesize="حجم فایل بیشتر از 5 مگابایت می باشید" filesize="5120" name="EditModel.Avatar" %}
+                                                    </label>
+                                                </div>
+                                                <p class="text-muted ml-1 mt-50">
+                                                    <small>فایل های مجاز: JPG، PNG و GIF. حداکثر اندازه مجاز:
+                                                        5MB</small>
+                                                    <span class="text-danger field-validation-valid"
+                                                          data-valmsg-for="EditModel.Avatar"
+                                                          data-valmsg-replace="true"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12 form-input">
+                                                <label>شماره تلفن (نام کاربری) :</label>
+                                                {% render_field form.phone style="pointer-events:none; color:#AAA; background:#F5F5F5;" %}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.Email"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-6 form-input">
+                                                <label>نام :</label>
+                                                {% render_field form.first_name style="pointer-events:none; color:#AAA; background:#F5F5F5;" %}
+                                                <span class="field-validation-valid"
+                                                      data-valmsg-for="EditModel.Name"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-6 form-input">
+                                                <label>نام خانوادگی :</label>
+                                                {% render_field form.last_name style="pointer-events:none; color:#AAA; background:#F5F5F5;" %}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.Family"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-6 form-input">
+                                                <label>سن :</label>
+                                                {% render_field form.age %}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.PhoneNumber"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label> جنسیت :</label>
+                                                <div class="form-group">
+                                                    {% render_field form.sex %}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 form-input">
+                                                <label>استان :</label>
+                                                {{ form.ostan }}
+                                                <span class="field-validation-valid"
+                                                      data-valmsg-for="EditModel.Name"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-6 form-input">
+                                                <label> شهر :</label>
+                                                {{ form.city }}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.Family"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+
+                                            <div class="col-md-6 form-input">
+                                                <label> ظرفیت :</label>
+                                                {% render_field form_consultant.capacity %}
+                                                <span class="field-validation-valid"
+                                                      data-valmsg-for="EditModel.Name"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+
+                                            <div class="col-md-6 form-input">
+                                                <label>رشته دبیرستان :</label>
+                                                {% render_field form.major_high_school %}
+                                                <span class="field-validation-valid"
+                                                      data-valmsg-for="EditModel.Name"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+
+                                            <div class="col-md-6 form-input">
+                                                <label> دانشگاه :</label>
+                                                {% render_field form_consultant.university %}
+                                                <span class="field-validation-valid"
+                                                      data-valmsg-for="EditModel.Name"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+
+                                            <div class="col-md-6 form-input">
+                                                <label> رشته دانشگاهی :</label>
+                                                {% render_field form_consultant.major_university %}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.Family"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+
+
+
+                                            <div class="col-md-12 form-input">
+                                                <label> بیوگرافی :</label>
+                                                {{ form_consultant.description }}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.AboutMe"
+                                                      data-valmsg-replace="true">
+                                                </span>
+                                            </div>
+
+                                            <div class="col-md-6 form-input">
+                                                <label> شماره تماس :</label>
+                                                {{ form_consultant.tel }}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.PhoneNumber"
+                                                      data-valmsg-replace="true">
+                                                </span>
+                                            </div>
+
+
+                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3">
+                                                <button type="submit"
+                                                        class="btn btn-primary glow mr-sm-1 mb-1">ذخیره
+                                                    تغییرات
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% elif request.user.type == 'student' %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="col col-4 callout callout-success bg bg-success">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form enctype="multipart/form-data" method="post" novalidate="novalidate">
+                {% csrf_token %}
+                <div class="card card-warning">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"> فرم مشخصات </h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="tab-content ">
+                                    <div role="tabpanel" class="tab-pane active"
+                                         id="account-vertical-general"
+                                         aria-labelledby="account-pill-general"
+                                         aria-expanded="true">
+
+                                        <div class="row">
+                                            <div class="col-md-6 form-input">
+                                                <label>شماره تلفن (نام کاربری) :</label>
+                                                {% render_field form.phone style="pointer-events:none; color:#AAA; background:#F5F5F5;" %}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.Email"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+                                            <div class="col-md-6 form-input">
+                                                <input type="hidden">
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.Email"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+
+                                            <div class="col-md-6 form-input">
+                                                <label>نام :</label>
+                                                {{ form.first_name }}
+                                                <span class="field-validation-valid"
+                                                      data-valmsg-for="EditModel.Name"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-6 form-input">
+                                                <label>نام خانوادگی :</label>
+                                                {{ form.last_name }}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.Family"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-6 form-input">
+                                                <label>سن :</label>
+                                                {{ form.age }}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.PhoneNumber"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label> جنسیت :</label>
+                                                <div class="form-group">
+                                                    {% render_field form.sex %}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 form-input">
+                                                <label>استان :</label>
+                                                {{ form.ostan }}
+                                                <span class="field-validation-valid"
+                                                      data-valmsg-for="EditModel.Name"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-6 form-input">
+                                                <label> شهر :</label>
+                                                {{ form.city }}
+                                                <span class="text-danger field-validation-valid"
+                                                      data-valmsg-for="EditModel.Family"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+                                            <div class="col-md-6 form-input">
+                                                <label>رشته دبیرستان :</label>
+                                                {% render_field form.major_high_school %}
+                                                <span class="field-validation-valid" data-valmsg-for="EditModel.Name"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+
+                                            <div class="col-md-6 form-input">
+                                                <label>پایه تحصیلی :</label>
+                                                {{ form_student.grade }}
+                                                <span class="field-validation-valid" data-valmsg-for="EditModel.Name"
+                                                      data-valmsg-replace="true"></span>
+                                            </div>
+
+
+                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3">
+                                                <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">
+                                                    ذخیره تغییرات
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'dashboard/plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- DataTables -->
+    <script src="{% static 'dashboard/plugins/datatables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'dashboard/plugins/datatables/dataTables.bootstrap4.js' %}"></script>
+    <!-- SlimScroll -->
+    <script src="{% static 'dashboard/plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'dashboard/plugins/fastclick/fastclick.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dashboard/dist/js/adminlte.min.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dashboard/dist/js/demo.js' %}"></script>
+    <!-- page script -->
+    </body>
+    </html>
+
+
+{% endblock %}

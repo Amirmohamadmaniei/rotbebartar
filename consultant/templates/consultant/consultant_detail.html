@@ -1,11 +1,13 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
-
+{% load filter %}
+{% load jalali_tags %}
+{% load ratings %}
+{% load widget_tweaks %}
 
 {% block title %}
     جزئیات مشاور {{ object.get_full_name }}
 {% endblock %}
-
 
 {% block content %}
     <section class="mt-3 ">
@@ -13,33 +15,94 @@
         <div class="container">
             <div class="row box  mx-wh  p-4  bg-half">
                 <div class="col-md-3  text-center">
-                    <img src="{{ object.profile.image.url }}" class="img-fluid rounded-circle border pic160"/><br/>
-                    <p class="pt-3 IRANSansWeb_Medium">کد مشاور : 1245</p>
+                    <img src="{{ object.consultantprofile.image.url }}" class="img-fluid rounded-circle border pic160"/><br/>
+                    {% if object.consultantprofile.status %}
+                        <p class="mt-3 mb-0 IRANSansWeb_Medium text-success"><i class="online ml-2"></i>آماده مشاوره</p>
+                    {% else %}
+                        <p class="mt-3 mb-0 IRANSansWeb_Medium text-danger"><span class="text-danger ml-1">●</span>
+                            امکان مشاوره نمی باشد</p>
+                    {% endif %}
+                    <span class="bg-warning py-1 px-2 text-dark  rad25"> ظرفیت مشاور : <span
+                            class="{% if object.consultantprofile.get_capacity < 3 %}text text-danger{% endif %}">{{ object.consultantprofile.get_capacity }} نفر
+                    </span>
                 </div>
                 <div class="col-md-9 text-md-right text-center">
                     <h3 class="IRANSansWeb_Medium text-white b-dark mb-0">{{ object.get_full_name }}</h3>
-                    <span class="float-md-left float-none">
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                    </span>
-                    <p class="text-sm-white IRANSansWeb_Medium text-white b-dark">تخصص مشاور مورد نظر</p>
-                    <p class="mt-3 mb-0 IRANSansWeb_Medium text-success"><i class="online ml-2"></i>آماده پاسخگویی</p>
-                    <p>
-                        <span class="IRANSansWeb_Medium"> 4158 سوال (در مدت 2 سال و 5 ماه )</span>
-                        <span class="IRANSansWeb_Medium text-primary  p-2 rad12 mb-0"><i
-                                class="far fa-comment pl-2"></i>2549 نظر</span>
 
+                    <span class="float-md-left float-none">
+                        {% ratings object read_only=True %}
+                    </span>
+
+                    <p class="text-sm-white IRANSansWeb_Medium text-white b-dark">
+                        <img style="width: 20px; height: 20px" src="{% static 'Images/Svg/uni.svg' %}"
+                             alt="university SVG"/>
+                        <span class="mr-1">
+                            {{ object.consultantprofile.university }}
+                        </span>
                     </p>
 
 
-                    <a href="#Chat" onclick="goToId('#Chat', 1000); return false;"
-                       class="btn btn-success px-4 py-2 text-white  rad25 float-md-left mb-3  "><i
-                            class="far fa-comment"></i> گفتگوی متنی با مشاور</a>
-                    <a href="#Call" onclick="goToId('#Call', 1000); return false;"
-                       class="btn btn-danger px-4 py-2 text-white rad25 float-md-left ml-md-3 mb-3"><i
-                            class="fas fa-phone"></i> گفتگوی تلفنی با مشاور</a>
+                    <span class="text-sm-dark IRANSansWeb_Medium text-dark b-dark"> <img
+                            style="width: 20px; height: 20px"
+                            src="{% static 'Images/Svg/graduation.svg' %}"
+                            alt="university SVG"/>
+                        <span class="mr-1">
+                            <span class="font-weight-bold"> رشته: </span> {{ object.consultantprofile.major_university }}
+                        </span>
+                    </span>
+
+
+                    <p>
+                        <span class="IRANSansWeb_Medium"> {{ object.consultantprofile.students.all.count }} دانش آموز در حال مشاوره</span>
+                        <span class="IRANSansWeb_Medium text-primary  p-2 rad12 mb-0">
+                            <i class="far fa-comment pl-2"></i>{{ object.consultantprofile.comments.all.count }} نظر</span>
+                    </p>
+
+
+
+
+
+                    <ul>
+                        <li>
+                            <span class="font-weight-bold"></span>
+                            <span></span>
+                        </li>
+                        <li>
+                            <span class="font-weight-bold"></span>
+                            <span> </span>
+                        </li>
+                    </ul>
+
+                    {% if not request.user.type == 'consultant' %}
+                        {% if request.user.is_authenticated %}
+
+                            {% if request.user.studentprofile.consultant == object.consultantprofile and request.user.studentprofile.subscriber_to_end %}
+                                <p class="btn btn-primary px-4 py-2 text-white  rad25 float-md-left mb-3">
+                                    {{ request.user.studentprofile.subscriber_to_end }}
+                                </p>
+
+                            {% else %}
+
+                                {% if object.consultantprofile.status == True and not request.user.studentprofile.consultant %}
+                                    <a href="#Chat" onclick="goToId('#Chat', 1000); return false;"
+                                       class="btn btn-primary px-4 py-2 text-white  rad25 float-md-left mb-3"><i
+                                            class="fas fa-check"></i>
+                                        انتخاب مشاور
+                                    </a>
+                                {% else %}
+
+                                {% endif %}
+
+                            {% endif %}
+
+                        {% else %}
+                            <a href="{% url 'account:login' %}"
+                               class="btn btn-primary px-4 py-2 text-white  rad25 float-md-left mb-3">
+                                لطفا برای انتخاب مشاور وارد شوید
+                            </a>
+                        {% endif %}
+
+                    {% endif %}
                 </div>
             </div>
 
@@ -47,165 +110,128 @@
                 <div class="col-md-12">
                     <h5 class="IRANSansWeb_Medium bg-light rad25 py-2 px-3 ">درباره مشاور</h5>
                     <p class="text-justify">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
-                        مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
-                        مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
-                        مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
-                        مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
-                        مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                        {{ object.consultantprofile.description|safe }}
                     </p>
                 </div>
             </div>
 
-            <div id="Call" class="mt-4 p-4  mx-wh box text-md-right text-center">
-                <h5 class="IRANSansWeb_Medium  bg-light py-2 px-3  mb-4 rad25"> تماس تلفنی با مشاور (در کمترین
-                    زمان) </h5>
+            {% if object.consultantprofile.status == True and not request.user.type == 'consultant' and not request.user.studentprofile.consultant and request.user.is_authenticated %}
+                <div id="Chat" class="mt-4 p-4  mx-wh box text-md-right text-center">
+                    <h5 class="IRANSansWeb_Medium bg-light py-2 px-3  mb-4 rad25">گفتگوی متنی با مشاور</h5>
+                    <div class="row">
 
-                <div class="row">
-
-                    <div class="col-lg-7">
-                        <p>
-                            با مشاور تا کمتر از 3 ساعت دیگر به صورت تلفنی گفتگو کنید! مشاور با شما تماس خواهد گرفت و
-                            حداکثر در 15 دقیقه پاسخگوی سوال شما خواهد بود. گوش به زنگ مشاور باشید.
-                        </p>
-                        <span class="dash-g p-2 rad25 mb-3">
-                            <span class="pl-3"><i class="fas fa-check pl-1 text-success"></i>تماس تلفنی</span>
-                            <span class="pl-3"><i class="fas fa-check pl-1 text-success"></i>ارسال متن</span>
-                            <span class="pl-3"><i class="fas fa-check pl-1 text-success"></i>ارسال عکس</span>
-                            <span class="pl-3"><i class="fas fa-check pl-1 text-success"></i>ارسال صوت</span>
-                        </span>
-
-                    </div>
-                    <div class="col-lg-2 text-md-left text-center my-3">
-                        <span class="IRANSansWeb_Light fa-2x">
-                           40,000 تومان
-                        </span>
-                    </div>
-                    <div class="col-lg-3 text-md-left text-center">
-                        <a href="Login.html" class="btn btn-danger px-4 text-white rad25  ml-3 "><i
-                                class="fas fa-phone mt-2"></i> شروع تماس</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="Chat" class="mt-4 p-4  mx-wh box text-md-right text-center">
-                <h5 class="IRANSansWeb_Medium bg-light py-2 px-3  mb-4 rad25">گفتگوی متنی با مشاور</h5>
-                <div class="row">
-
-                    <div class="col-lg-7">
-                        <p>
-                            با مشاور تا کمتر از 3 ساعت دیگر به صورت متنی گفتگو کنید! مشاور با شما چت خواهد کرد و حداکثر
-                            در 15 دقیقه پاسخگوی سوال شما خواهد بود. گوش به زنگ مشاور باشید.
-                        </p>
-                        <span class="dash-g p-2 rad25 mb-3">
-                            <span class="pl-3"><i class="fas fa-times fa-2x text-danger pl-1 "></i>تماس تلفنی</span>
-                            <span class="pl-3"><i class="fas fa-check pl-1 text-success"></i>ارسال متن</span>
-                            <span class="pl-3"><i class="fas fa-check pl-1 text-success"></i>ارسال عکس</span>
-                            <span class="pl-3"><i class="fas fa-check pl-1 text-success"></i>ارسال صوت</span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2 text-md-left text-center my-3">
-                        <span class="IRANSansWeb_Light fa-2x">
-                            26,000 تومان
-                        </span>
-                    </div>
-                    <div class="col-lg-3 text-md-left text-center">
-                        <a href="Login.html" class="btn btn-success px-4 text-white rad25  ml-3 "><i
-                                class="far fa-comment mt-2"></i> شروع چـت </a>
+                        <div class="col-lg-7">
+                            <p>
+                                برای دریافت مشاوره یکی از گزینه های زیر را انتخاب کرده و بعد از پرداخت مبلغ مورد
+                                نظر، مشاوره با مشاور مورد نظر برای شما فعال خواهد شد (می توانید در پروفایل خود
+                                آن رامشاهده نمایید)
+                            </p>
+                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=30 %}">
+                                                <span class="dash-g p-2 rad25 ">
+                                                    <span class="pl-3 container"> <b> یک ماهه </b>{{ object.consultantprofile.price|price:1|separator }} تومان </span>
+                                                </span>
+                            </a>
+                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=60 %}">
+                                                <span class="dash-g p-2 rad25 mb-3 mr-2">
+                                                    <span class="pl-3 container"><b> دو ماهه </b> {{ object.consultantprofile.price|price:2|separator }} تومان </span>
+                                                </span>
+                            </a>
+                            <br> <br>
+                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=90 %}">
+                                                <span class="dash-g p-2 rad25 mb-6 ">
+                                                    <span class="pl-3 container"><b> سه ماهه </b> {{ object.consultantprofile.price|price:3|separator }} تومان </span>
+                                                </span>
+                            </a>
+                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=180 %}">
+                                                <span class="dash-g p-2 rad25 mb-3 mr-2">
+                                                    <span class="pl-3 container"><b> شش ماهه </b> {{ object.consultantprofile.price|price:6|separator }} تومان </span>
+                                                </span>
+                            </a>
+                            <br> <br>
+                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=360 %}">
+                                                <span class="dash-g p-2 rad25 mb-3 ">
+                                                    <span class="pl-3 container"><b> یک ساله </b> {{ object.consultantprofile.price|price:12|separator }} تومان </span>
+                                                </span>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 text-md-left text-center my-3">
+                            <span class="IRANSansWeb_Light fa-2x"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            {% endif %}
 
             <div class="mt-4 p-4  mx-wh box">
                 <h5 class="IRANSansWeb_Medium bg-light py-2 px-3  mb-4 rad25">نظرات کاربران</h5>
 
                 <ul>
-                    <li>
-                        <div class="d-flex flex-row flex-wrap justify-content-between dash rad25 m-md-3 m-1 p-3">
-                            <div>
-                                <span class="IRANSansWeb_Medium pl-4">علی حمیدی</span>
-                                <span>
-                                    <i class="fas fa-star text-warning"></i>
-                                    <i class="fas fa-star text-warning"></i>
-                                    <i class="fas fa-star text-warning"></i>
-                                    <i class="fas fa-star text-warning"></i>
-                                </span>
-                                <p class="mb-0">پاسخ گویی شون عالی و خوب بود</p>
-                            </div>
 
-                            <div class="float-left">
-                                <span>22 : 16</span> -
-                                <span>1398/4/25</span>
-                            </div>
+                    {% for comment in object.consultantprofile.comments.all %}
+                        {% if comment.status == True %}
+                            <li>
+                                <div class="d-flex flex-row flex-wrap justify-content-between dash rad25 m-md-3 m-1 p-3">
+                                    <div>
+                                        <span class="IRANSansWeb_Medium pl-4">{{ comment.user.user.get_full_name }}</span>
+                                        {#                                    <span>#}
+                                        {#                                         {% ratings object read_only=True  %}#}
+                                        {#                                    </span>#}
+                                        <p class="mb-0">{{ comment.text }}</p>
+                                    </div>
 
-                        </div>
-                    </li>
-                    <li>
-                        <div class="d-flex flex-row flex-wrap justify-content-between dash rad25 m-md-3 m-1 p-3">
-                            <div>
-                                <span class="IRANSansWeb_Medium pl-4">مهسا حمیدی</span>
-                                <span>
+                                    <div class="float-left">
+                                        <span>{{ comment.created.time }}</span> -
+                                        <span>14{{ comment.created.date|to_jalali }}</span>
+                                    </div>
 
-                                    <i class="fas fa-star text-warning"></i>
-                                    <i class="fas fa-star text-warning"></i>
-                                </span>
-                                <p class="mb-0">خوبه راضی ام</p>
-                            </div>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
 
-                            <div class="float-left">
-                                <span>22 : 16</span> -
-                                <span>1398/4/25</span>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="d-flex flex-row flex-wrap justify-content-between dash rad25 m-md-3 m-1 p-3">
-                            <div>
-                                <span class="IRANSansWeb_Medium pl-4">علی رضایی</span>
-                                <span>
-                                    <i class="fas fa-star text-warning"></i>
-                                    <i class="fas fa-star text-warning"></i>
-                                    <i class="fas fa-star text-warning"></i>
-
-                                </span>
-                                <p class="mb-0">تخصص شون عالی بود ممنون</p>
-                            </div>
-
-                            <div class="float-left">
-                                <span>22 : 16</span> -
-                                <span>1398/4/25</span>
-                            </div>
-
-                        </div>
-                    </li>
                 </ul>
 
 
-                <div class="py-3 px-sm-5 sencom">
-                    <h6 class="IRANSans-Bold pl-2 ml-3 IRANSansWeb_Medium">ارسال دیدگاه :</h6>
-                    <img src="{% static 'Images/avatar.jpg' %}" class="img-fluid mb-2 rounded-circle"/>
-                    <div class="form-group">
-                        <input class="form-control w-75" type="text" placeholder="نـام"/>
-                        <input class="form-control w-75" type="email" placeholder="ایـمیل"/>
-                        <textarea class="form-control area" cols="60" rows="9" placeholder="دیدگاه"
-                                  style="min-height: 150px!important"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-warning mb-3">ارسـال &nbsp;<i class="fa fa-paper-plane"></i>
-                    </button>
-                </div>
+                {% if request.user.studentprofile.consultant == object.consultantprofile %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="py-3 px-sm-5 sencom">
+                            <h6 class="IRANSans-Bold pl-2 ml-3 IRANSansWeb_Medium">ارسال دیدگاه :</h6>
+                            <img src="{% static 'Images/avatar.jpg' %}" class="img-fluid mb-2 rounded-circle"/>
+                            <div class="form-group">
 
+                                <div>
+                                    {% ratings object %}
+                                </div>
+                                {% render_field form.text style="min-height: 150px!important" cols="60" rows="9" placeholder="دیدگاه" %}
+
+                            </div>
+                            <button type="submit" class="btn btn-warning mb-3">ارسـال &nbsp;<i
+                                    class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                {% else %}
+
+                    <form>
+                        <div class="py-3 px-sm-5 sencom">
+                            <h6 class="text text-danger IRANSans-Bold pl-2 ml-3 IRANSansWeb_Medium">
+                                برای ارسال دیدگاه باید مشاور را برای مشاوره انتخاب کرده باشید</h6>
+                            <img src="{% static 'Images/avatar.jpg' %}" class="img-fluid mb-2 rounded-circle"/>
+                            <div class="form-group">
+
+                                <div>
+                                    {% ratings object read_only=True %}
+                                </div>
+                                {% render_field form.text disabled="disabled" style="min-height: 150px!important" cols="60" rows="9" placeholder="دیدگاه" %}
+
+                            </div>
+                            <button type="submit" disabled class=" btn btn-warning mb-3">ارسـال &nbsp;<i
+                                    class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                {% endif %}
 
             </div>
 

@@ -20,8 +20,9 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dashboard/', include('dashboard.urls')),
     path('', include('home.urls')),
     path('', include('account.urls')),
     path('consultant/', include('consultant.urls')),
+    path('blog/', include('blog.urls')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

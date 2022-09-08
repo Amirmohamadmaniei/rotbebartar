@@ -21,10 +21,16 @@
                     </ul>
                 </div>
             {% else %}
-                <div class="extension-nav">
-                    <a href="{% url 'account:profile' request.user.id %}"> Profile </a>
+
+                <div class="extension-nav pt-2 pt-lg-3 pt-md-3 ml-lg-2 ml-md-2 pt-sm-2 pt-xl-2 pt-xs-2">
+                    <a href="{% url 'account:profile' %}">
+                        <img style="height: 35px; width: 35px;" src="{% static 'Images/profile.png' %}"
+                             alt="profile picture">
+                    </a>
                 </div>
+
             {% endif %}
+
             <div class="sina-nav-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                     <i class="fa fa-bars"></i>
@@ -37,12 +43,11 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="sina-menu sina-menu-center IRANSansWeb">
                     <li><a href="{% url 'home:home' %}">صفحه اصلی</a></li>
-                    <li><a href="Blog.html">وبلاگ</a></li>
-                    <li><a href="Reservationlist.html">جستجوی پیشرفته</a></li>
-                    <li><a href="Reservation.html">مشاوران</a></li>
-                    <li><a href="Faq.html">پرسش و پاسخ</a></li>
-                    <li><a href="AboutUs.html">درباره ما</a></li>
-                    <li><a href="ContactUs.html">ارتباط با ما</a></li>
+                    <li><a href="{% url 'blog:blog_list' %}">وبلاگ</a></li>
+                    <li><a href="{% url 'consultant:consultant_list' %}">مشاوران</a></li>
+                    <li><a href="{% url 'home:faq' %}">پرسش و پاسخ</a></li>
+                    <li><a href="{% url 'home:about_us' %}">درباره ما</a></li>
+                    <li><a href="{% url 'home:contact_us' %}">ارتباط با ما</a></li>
                 </ul>
             </div>
         </div>
