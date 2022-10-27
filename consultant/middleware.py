@@ -10,14 +10,17 @@ class ConsultantCapacityMiddleware:
         # Code to be executed for each request before
         # the view (and later middleware) are called.
 
-        consultants = CustomUser.objects.filter(type='consultant')
-        for consultant in consultants:
-            if consultant.consultantprofile.capacity <= consultant.consultantprofile.students.all().count():
-                consultant.consultantprofile.status = False
-                consultant.consultantprofile.save()
-            else:
-                consultant.consultantprofile.status = True
-                consultant.consultantprofile.save()
+        try:
+            consultants = CustomUser.objects.filter(type='consultant')
+            for consultant in consultants:
+                if consultant.consultantprofile.capacity <= consultant.consultantprofile.students.all().count():
+                    consultant.consultantprofile.status = False
+                    consultant.consultantprofile.save()
+                else:
+                    consultant.consultantprofile.status = True
+                    consultant.consultantprofile.save()
+        except:
+            pass
 
         response = self.get_response(request)
 

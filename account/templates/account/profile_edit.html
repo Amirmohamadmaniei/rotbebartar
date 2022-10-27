@@ -46,7 +46,7 @@
                                         <div class="media">
                                             <a href="javascript:void(0);">
                                                 <img src="
-                                                {% if request.user.consultantprofile.image.url %}
+                                                {% if request.user.consultantprofile.image %}
                                                     {{ request.user.consultantprofile.image.url }}
                                                 {% else %}
                                                     {% static 'Images/avatar.jpg' %}

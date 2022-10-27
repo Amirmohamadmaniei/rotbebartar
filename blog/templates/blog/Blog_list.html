@@ -67,7 +67,7 @@
                                 <h6 class="IRANSansWeb_Medium text-white text-shadow">{{ blog.title }}</h6>
                             </div>
                             <div class="d-flex flex-row">
-                                <img src="{{ blog.author.image.url }}" class="img-fluid rounded-circle ml-3 pic55"/>
+                                <img src="{% if blog.author.image %}{{ blog.author.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}" class="img-fluid rounded-circle ml-3 pic55"/>
 
                                 <div>
                                     <p class="text-white IRANSansWeb_Medium text-shadow bottom_p"> {{ blog.author.user.get_full_name }}</p>
@@ -116,7 +116,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex flex-row">
-                            <img src="{{ last_blog.author.image.url }}" class="img-fluid rounded-circle ml-3 pic55"/>
+                            <img src="{% if last_blog.author.image %}{{ last_blog.author.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}" class="img-fluid rounded-circle ml-3 pic55"/>
 
                             <div>
                                 <p class="text-dark IRANSansWeb_Medium bottom_p"> {{ last_blog.author.user.get_full_name }}</p>

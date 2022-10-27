@@ -48,47 +48,47 @@
 
 
                 </div>
-                <div class="box p-4 text-dark mt-4">
-                    <h6 class="IRANSansWeb_Medium bt-color bg-light py-2 px-3 rad25">دسته بندی ها</h6>
-                    <div id="skill" class="p-2">
-                        <ul>
-                            <li>
-                                <a href="#">تخصص 1<span
-                                        class="badge badge-secondary mr-3  p-2 rad25 float-left text-dark">125</span></a><br/>
-                            </li>
-                            <li>
-                                <a href="#">تخصص 2<span
-                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">856</span></a><br/>
-                            </li>
-                            <li>
-                                <a href="#">تخصص 3<span
-                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">7459</span></a><br/>
-                            </li>
-                            <li>
-                                <a href="#">تخصص 4<span
-                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">965</span></a><br/>
-                            </li>
-                            <li>
-                                <a href="#">تخصص 5<span
-                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">8123</span></a><br/>
-                            </li>
-                            <li>
-                                <a href="#">تخصص 6<span
-                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">7459</span></a><br/>
-                            </li>
-                            <li>
-                                <a href="#">تخصص 7<span
-                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">965</span></a><br/>
-                            </li>
-                            <li>
-                                <a href="#">تخصص 8<span
-                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">8123</span></a><br/>
-                            </li>
-
-
-                        </ul>
-                    </div>
-                </div>
+{#                <div class="box p-4 text-dark mt-4">#}
+{#                    <h6 class="IRANSansWeb_Medium bt-color bg-light py-2 px-3 rad25">دسته بندی ها</h6>#}
+{#                    <div id="skill" class="p-2">#}
+{#                        <ul>#}
+{#                            <li>#}
+{#                                <a href="#">تخصص 1<span#}
+{#                                        class="badge badge-secondary mr-3  p-2 rad25 float-left text-dark">125</span></a><br/>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">تخصص 2<span#}
+{#                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">856</span></a><br/>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">تخصص 3<span#}
+{#                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">7459</span></a><br/>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">تخصص 4<span#}
+{#                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">965</span></a><br/>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">تخصص 5<span#}
+{#                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">8123</span></a><br/>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">تخصص 6<span#}
+{#                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">7459</span></a><br/>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">تخصص 7<span#}
+{#                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">965</span></a><br/>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">تخصص 8<span#}
+{#                                        class="badge badge-secondary p-2 mr-3 rad25 float-left text-dark">8123</span></a><br/>#}
+{#                            </li>#}
+{##}
+{##}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
             </div>
 
 
@@ -99,14 +99,7 @@
                         <div class="row">
                             <div class="col-lg-2 text-lg-right text-center">
                                 <a href="{{ object.get_absolute_url }}">
-                                    <img src="
-
-
-
-
-
-
-                                            {% if object.consultantprofile.image.url %}{{ object.consultantprofile.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}"
+                                    <img src="{% if object.consultantprofile.image == None %}{% static 'Images/avatar.jpg' %}{% else %}{{ object.consultantprofile.image.url }}{% endif %}"
                                          class="img-fluid rounded-circle mb-lg-0 mb-3"/>
                                 </a>
                                 {% if object.consultantprofile.status %}

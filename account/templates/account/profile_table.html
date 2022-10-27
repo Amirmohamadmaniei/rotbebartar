@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card">
                         {% if request.user.type == 'student' %}
-                            {% if request.user.studentprofile.consultant == None %}
+                            {% if request.user.studentprofile.consultant == None or not request.user.studentprofile %}
                                 <div class="card-header bg bg-warning-gradient">
                                     <h3 class="card-title">مشاور</h3>
                                 </div>
@@ -51,7 +51,7 @@
                                         <tr>
                                             <td>
                                                 <img
-                                                        src="{{ request.user.studentprofile.consultant.user.consultantprofile.image.url }}"
+                                                        src="{% if request.user.studentprofile.consultant.user.consultantprofile.image %}{{ request.user.studentprofile.consultant.user.consultantprofile.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}"
                                                         class="img-circle elevation-2" alt="User Image"
                                                         style="height: 40px; width: 40px;">
                                             </td>

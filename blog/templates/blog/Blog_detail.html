@@ -43,7 +43,7 @@
 
                 <div class="box card text-center">
                     <div id="prof" class="card-body relative">
-                        <img class="pic90 rounded-circle absolute" src="{{ object.author.image.url }}" alt=""
+                        <img class="pic90 rounded-circle absolute" src="{% if object.author.image %}{{ object.author.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}" alt=""
                              style="top:-30px;right:40%">
                         <h6 class="IRANSansWeb_Medium mt-5 cont">{{ object.author.user.get_full_name }}</h6>
 

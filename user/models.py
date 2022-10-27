@@ -72,13 +72,13 @@ class ConsultantProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     capacity = models.IntegerField(default=0, verbose_name='ظرفیت قبولی دانش اموزان')
     status = models.BooleanField(default=False, verbose_name='وضعبت فعالیت')
-    university = models.CharField(max_length=150, null=True, blank=True)
+    university = models.CharField(max_length=150)
     major_university = models.CharField(max_length=100, verbose_name='رشته دانشگاهی')
-    image = models.ImageField(upload_to='img/consultant', verbose_name='عکس پروفایل')
+    image = models.ImageField(upload_to='img/consultant', null=True, blank=True, verbose_name='عکس پروفایل')
     description = models.TextField(verbose_name='سوابق تحصیلی')
-    price = models.CharField(max_length=15, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True, verbose_name='ایمیل')
-    tel = models.CharField(max_length=180, null=True, blank=True, verbose_name='شماره تماس')
+    price = models.CharField(max_length=15)
+    email = models.EmailField(verbose_name='ایمیل')
+    tel = models.CharField(max_length=180, verbose_name='شماره تماس')
 
     class Meta:
         verbose_name = 'اطلاعات مشاور'
