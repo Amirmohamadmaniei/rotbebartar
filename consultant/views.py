@@ -10,7 +10,7 @@ from user.models import CustomUser
 class ConsultantListView(generic.ListView):
     template_name = 'consultant/consultant_list.html'
     queryset = CustomUser.objects.filter(type='consultant')
-    paginate_by = 1
+    paginate_by = 2
 
 
 class ConsultantDetailView(generic.View):
@@ -32,13 +32,15 @@ class ConsultantDetailView(generic.View):
 
 
 class SelectConsultantView(generic.View):
-    def get(self, request, pk, days):
-        consultant = CustomUser.objects.get(pk=pk)
+    def get(self, request, *args, **kwargs):
+        consultant_pk = request.GET.get('consultant_pk')
+        days = request.GET.get('days')
+        consultant = CustomUser.objects.get(pk=consultant_pk)
         student = CustomUser.objects.get(id=request.user.id)
 
         student.studentprofile.consultant = consultant.consultantprofile
         student.studentprofile.time_consultation = days
-        student.studentprofile.time_end = datetime.today().date() + timedelta(days=days)
+        student.studentprofile.time_end = datetime.today().date() + timedelta(days=int(days))
         student.studentprofile.save()
         return redirect(reverse('consultant:consultant_detail', kwargs={'slug': consultant.slug}))
 
@@ -54,7 +56,7 @@ class SearchConsultantView(generic.View):
 
 class FilterConsultantView(generic.ListView):
     template_name = 'consultant/consultant_list.html'
-    paginate_by = 1
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(FilterConsultantView, self).get_context_data(**kwargs)
@@ -64,20 +66,7 @@ class FilterConsultantView(generic.ListView):
     def get_queryset(self):
         consultant_name = self.request.GET.get('consultant_name')
         major = self.request.GET.get('major')
-        if 'male' and 'female' in self.request.GET:
-            sex = None
-        elif 'male' in self.request.GET:
-            sex = 'male'
-        elif 'female' in self.request.GET:
-            sex = 'female'
-        else:
-            sex = None
 
-        if sex:
-            object_list = CustomUser.objects.filter(Q(type='consultant') & Q(last_name__icontains=consultant_name) &
-                                                    Q(sex=sex) &
-                                                    Q(consultantprofile__major_university__icontains=major))
-        else:
-            object_list = CustomUser.objects.filter(Q(type='consultant') & Q(last_name__icontains=consultant_name) &
-                                                    Q(consultantprofile__major_university__icontains=major))
+        object_list = CustomUser.objects.filter(Q(type='consultant') & Q(last_name__icontains=consultant_name) &
+                                                Q(consultantprofile__major_university__icontains=major))
         return object_list

@@ -9,5 +9,5 @@ urlpatterns = [
     path('search/', views.SearchConsultantView.as_view(), name='consultant_list_search'),
     path('filter', views.FilterConsultantView.as_view(), name='consultant_list_filter'),
     re_path(r'detail/(?P<slug>[-\w]+)/', views.ConsultantDetailView.as_view(), name='consultant_detail'),
-    path('select/<int:pk>/<int:days>', views.SelectConsultantView.as_view(), name='consultant_select'),
+    path('select/', views.SelectConsultantView.as_view(), name='consultant_select'),
 ]

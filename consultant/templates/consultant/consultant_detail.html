@@ -15,7 +15,8 @@
         <div class="container">
             <div class="row box  mx-wh  p-4  bg-half">
                 <div class="col-md-3  text-center">
-                    <img src="{% if object.consultantprofile.image %}{{ object.consultantprofile.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}" class="img-fluid rounded-circle border pic160"/><br/>
+                    <img src="{% if object.consultantprofile.image %}{{ object.consultantprofile.image.url }}{% else %}{% static 'Images/avatar.jpg' %}{% endif %}"
+                         class="img-fluid rounded-circle border pic160"/><br/>
                     {% if object.consultantprofile.status %}
                         <p class="mt-3 mb-0 IRANSansWeb_Medium text-success"><i class="online ml-2"></i>آماده مشاوره</p>
                     {% else %}
@@ -57,9 +58,6 @@
                         <span class="IRANSansWeb_Medium text-primary  p-2 rad12 mb-0">
                             <i class="far fa-comment pl-2"></i>{{ object.consultantprofile.comments.all.count }} نظر</span>
                     </p>
-
-
-
 
 
                     <ul>
@@ -120,74 +118,73 @@
                     <h5 class="IRANSansWeb_Medium bg-light py-2 px-3  mb-4 rad25">گفتگوی متنی با مشاور</h5>
                     <div class="row">
 
-                        <div class="col col-lg-6 col-xs-6">
-                            <p>
-                                برای دریافت مشاوره یکی از گزینه های زیر را انتخاب کرده و بعد از پرداخت مبلغ مورد
-                                نظر، مشاوره با مشاور مورد نظر برای شما فعال خواهد شد (می توانید در پروفایل خود
-                                آن رامشاهده نمایید)
+                        {#                                                <div class="col col-lg-6 col-xs-6">#}
+                        {#                                                    <p>#}
+                        {#                                                        برای دریافت مشاوره یکی از گزینه های زیر را انتخاب کرده و بعد از پرداخت مبلغ مورد#}
+                        {#                                                        نظر، مشاوره با مشاور مورد نظر برای شما فعال خواهد شد (می توانید در پروفایل خود#}
+                        {#                                                        آن رامشاهده نمایید)#}
+                        {#                                                    </p>#}
+                        {#                                                    <a class="col col-xs-6" href="{% url 'consultant:consultant_select' pk=object.pk days=30 %}">#}
+                        {#                                                                        <span class="dash-g p-2 rad25 ">#}
+                        {#                                                                            <span class="pl-3 container"> <b> یک ماهه </b>{{ object.consultantprofile.price|price:1|separator }} تومان </span>#}
+                        {#                                                                        </span>#}
+                        {#                                                    </a>#}
+                        {#                                                    <a class="col-xs-6" href="{% url 'consultant:consultant_select' pk=object.pk days=60 %}">#}
+                        {#                                                                        <span class="dash-g p-2 rad25 mb-3 mr-2">#}
+                        {#                                                                            <span class="pl-3 container"><b> دو ماهه </b> {{ object.consultantprofile.price|price:2|separator }} تومان </span>#}
+                        {#                                                                        </span>#}
+                        {#                                                    </a>#}
+                        {#                                                    <br> <br>#}
+                        {#                                                    <a href="{% url 'consultant:consultant_select' pk=object.pk days=90 %}">#}
+                        {#                                                                        <span class="dash-g p-2 rad25 mb-6 ">#}
+                        {#                                                                            <span class="pl-3 container"><b> سه ماهه </b> {{ object.consultantprofile.price|price:3|separator }} تومان </span>#}
+                        {#                                                                        </span>#}
+                        {#                                                    </a>#}
+                        {#                                                    <a href="{% url 'consultant:consultant_select' pk=object.pk days=180 %}">#}
+                        {#                                                                        <span class="dash-g p-2 rad25 mb-3 mr-2">#}
+                        {#                                                                            <span class="pl-3 container"><b> شش ماهه </b> {{ object.consultantprofile.price|price:6|separator }} تومان </span>#}
+                        {#                                                                        </span>#}
+                        {#                                                    </a>#}
+                        {#                                                    <br> <br>#}
+                        {#                                                    <a href="{% url 'consultant:consultant_select' pk=object.pk days=360 %}">#}
+                        {#                                                                        <span class="dash-g p-2 rad25 mb-3 ">#}
+                        {#                                                                            <span class="pl-3 container"><b> یک ساله </b> {{ object.consultantprofile.price|price:12|separator }} تومان </span>#}
+                        {#                                                                        </span>#}
+                        {#                                                    </a>#}
+                        {#                                                </div>#}
+
+
+
+
+                        <div class="col-md-6 container shadow-sm mb-3 mr-3">
+                            <p class="font-13 mt-3">برای دریافت مشاوره یکی از گزینه های زیر را انتخاب کرده و بعد از
+                                پرداخت مبلغ مورد
+                                نظر، </br> مشاوره با مشاور مورد نظر برای شما فعال خواهد شد (می توانید در پروفایل خود آن
+                                رامشاهده نمایید)
                             </p>
-                            <a class="col col-xs-6" href="{% url 'consultant:consultant_select' pk=object.pk days=30 %}">
-                                                <span class="dash-g p-2 rad25 ">
-                                                    <span class="pl-3 container"> <b> یک ماهه </b>{{ object.consultantprofile.price|price:1|separator }} تومان </span>
-                                                </span>
-                            </a>
-                            <a class="col-xs-6" href="{% url 'consultant:consultant_select' pk=object.pk days=60 %}">
-                                                <span class="dash-g p-2 rad25 mb-3 mr-2">
-                                                    <span class="pl-3 container"><b> دو ماهه </b> {{ object.consultantprofile.price|price:2|separator }} تومان </span>
-                                                </span>
-                            </a>
-                            <br> <br>
-                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=90 %}">
-                                                <span class="dash-g p-2 rad25 mb-6 ">
-                                                    <span class="pl-3 container"><b> سه ماهه </b> {{ object.consultantprofile.price|price:3|separator }} تومان </span>
-                                                </span>
-                            </a>
-                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=180 %}">
-                                                <span class="dash-g p-2 rad25 mb-3 mr-2">
-                                                    <span class="pl-3 container"><b> شش ماهه </b> {{ object.consultantprofile.price|price:6|separator }} تومان </span>
-                                                </span>
-                            </a>
-                            <br> <br>
-                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=360 %}">
-                                                <span class="dash-g p-2 rad25 mb-3 ">
-                                                    <span class="pl-3 container"><b> یک ساله </b> {{ object.consultantprofile.price|price:12|separator }} تومان </span>
-                                                </span>
-                            </a>
+                            <hr>
+
+                            <form method="get" action="{% url 'consultant:consultant_select' %}">
+
+                                <select name="days" required class="form-control">
+                                    <option value="30" selected>یک ماهه</option>
+                                    <option value="60">دو ماهه</option>
+                                    <option value="90">سه ماهه</option>
+                                    <option value="180">شش ماهه</option>
+                                    <option value="360">یک ساله</option>
+                                </select>
+
+
+                                <input type="hidden" name="consultant_pk" value="{{ object.pk }}">
+
+
+                                <button type="submit" class="btn btn-secondary col col-md-12 wide container">تایید
+                                </button>
+
+                            </form>
+
                         </div>
 
-
-                        ###########################################
-
-
-
-                        <div class="col col-lg-6 col-xs-6">
-                            <p>
-                                برای دریافت مشاوره یکی از گزینه های زیر را انتخاب کرده و بعد از پرداخت مبلغ مورد
-                                نظر، مشاوره با مشاور مورد نظر برای شما فعال خواهد شد (می توانید در پروفایل خود
-                                آن رامشاهده نمایید)
-                            </p>
-                            <a class="col col-xs-6" href="{% url 'consultant:consultant_select' pk=object.pk days=30 %}">
-                                                    <span class="pl-3 container"> <b> یک ماهه </b>{{ object.consultantprofile.price|price:1|separator }} تومان </span>
-                            </a>
-                            <a class="col-xs-6" href="{% url 'consultant:consultant_select' pk=object.pk days=60 %}">
-                                                    <span class="pl-3 container"><b> دو ماهه </b> {{ object.consultantprofile.price|price:2|separator }} تومان </span>
-                            </a>
-                            <br> <br>
-                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=90 %}">
-                                                    <span class="pl-3 container"><b> سه ماهه </b> {{ object.consultantprofile.price|price:3|separator }} تومان </span>
-                            </a>
-                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=180 %}">
-                                                    <span class="pl-3 container"><b> شش ماهه </b> {{ object.consultantprofile.price|price:6|separator }} تومان </span>
-                            </a>
-                            <br> <br>
-                            <a href="{% url 'consultant:consultant_select' pk=object.pk days=360 %}">
-                                                    <span class="pl-3 container"><b> یک ساله </b> {{ object.consultantprofile.price|price:12|separator }} تومان </span>
-                            </a>
-                        </div>
-
-{#                        <div class="col-lg-2 text-md-left text-center my-3">#}
-{#                            <span class="IRANSansWeb_Light fa-2x"></span>#}
-{#                        </div>#}
 
                     </div>
                 </div>
@@ -204,9 +201,6 @@
                                 <div class="d-flex flex-row flex-wrap justify-content-between dash rad25 m-md-3 m-1 p-3">
                                     <div>
                                         <span class="IRANSansWeb_Medium pl-4">{{ comment.user.user.get_full_name }}</span>
-                                        {#                                    <span>#}
-                                        {#                                         {% ratings object read_only=True  %}#}
-                                        {#                                    </span>#}
                                         <p class="mb-0">{{ comment.text }}</p>
                                     </div>
 
