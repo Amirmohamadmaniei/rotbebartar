@@ -99,7 +99,7 @@
                         <div class="row">
                             <div class="col-lg-2 text-lg-right text-center">
                                 <a href="{{ object.get_absolute_url }}">
-                                    <img src="{% if object.consultantprofile.image == None %}{% static 'Images/avatar.jpg' %}{% else %}{{ object.consultantprofile.image.url }}{% endif %}"
+                                    <img src="{% if not object.consultantprofile.image %}{% static 'Images/avatar.jpg' %}{% else %}{{ object.consultantprofile.image.url }}{% endif %}"
                                          class="img-fluid rounded-circle mb-lg-0 mb-3"/>
                                 </a>
                                 {% if object.consultantprofile.status %}
